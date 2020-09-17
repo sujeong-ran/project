@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>실습02_ 모바일 sns채팅 UI구현</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        body{
+            font-family: "맑은 고딕",arial,sans-serif;
+            font-size:12px;
+            color:#333;
+        }
+        h2,p{padding:20px;}
+    
+/*        채팅 ui서식*/
+        #wrap{
+            width:90%;
+            margin:0px auto;
+            border:1px solid #ccc;
+            box-shadow: 0px 2px 4px rgba(0,0,0,.5);
+            box-sizing: border-box;
+        }
+        header{
+            background-color:#fff;
+            padding:30px 8px 8px 8px;
+            position: relative;
+        }
+        header img{
+            width:52px; 
+            border:1px solid #ccc;
+        }
+        header > input[type=button]{
+            width:12px;
+            height:12px;
+            border-radius: 50%;
+            border:none;
+            position: absolute;
+            top:8px;
+        }
+/*        버튼 3개 위치 지정*/
+        #close{background-color:#f00;}
+        #minbtn{background-color:#ffa90d; left:26px;}
+        #maxbtn{background-color:#00e699; left:44px;}
+        
+        header span{
+            font-weight: bold;
+        }
+        
+/*        섹선 서식 - 채팅글이 보여지는 영역*/
+        .chatbox{
+            background-color:#d7e4f2;
+            height:400px;
+            padding:10px;
+            position:relative;
+            overflow-y:scroll; /*세로방향으로 스크롤 나오게*/
+        }
+        .chatbox > div{
+            max-width: 300px;
+            font-size:14px;
+            padding:7px 15px 7px 15px;
+            margin:5px 0px;
+            display: inline-block;
+            clear:both; /*float 속성을 없애기 (말풍선의 위치 위 아래로 배치함) */
+            word-break: break-all; /*글자다음줄로 넘김*/
+        }
+        .bubble01{
+            background-color:#fff;
+            float:left;
+            border-radius: 14px 14px 14px 0px;
+        }
+        .bubble02{
+            background-color:#f2f233;
+            float:right;
+            border-radius: 14px 14px 0px 14px;
+        }
+        
+/*        푸터영역 서식 - 사용자가 글 입력하고 전송*/
+        footer{
+            padding:10px;
+        }
+        footer:after{
+            clear: both;
+            content: "";
+            display: block;
+        }
+/*        대화내용 입력상자 서식*/
+        footer textarea{
+            background-color:#fff;
+            width:calc(100% - 70px); /*가로방향으로 70px을 100%에서 제외한 모든 가로크기영역을 설정함*/
+            height:60px;
+            border-radius: 3px;
+            border:0.5 solid #ccc;
+            padding:10px;
+            box-sizing: border-box;
+            float:left;
+        }
+/*        전송버튼 서식*/
+        footer > input[type=button]{
+            background-color:#1979ea;
+            border:none;
+            width:60px;
+            height:60px;
+            border-radius: 3px;
+            float: right;
+            color:#fff;
+        }
+        
+        
+        
+    </style>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        
+        var send = $('footer input[type=button]');
+        
+        send.click(function(){
+            //사용자가 입력한 내용을 변수에 저장
+            var talk = $('footer textarea').val();
+            
+            if(talk == ''){ //내용을 아무것도 쓰지 않았다면
+                send.attr('disabled',false); //버튼을 누르지 못하게 비활성화함
+            }else{
+                $('footer textarea').val(''); //입력한 내용 비우고
+                $('.chatbox').append('<div class="bubble02">'+talk+'</div>');
+            };
+        });
+        
+    });
+    
+    
+    </script>
+</head>
+<body>
+    <h2>실습02_모바일 sns채팅 UI구현</h2>
+    <p>문서객체조작 메서드 val, attr, addClass를 사용하여 입력양식(input)에 들어간 내용 출력(textarea)하기</p>
+    
+    <div id="wrap">
+        <header>
+            <input type="button" class="btn01" id="close">
+            <input type="button" class="btn02" id="minbtn">
+            <input type="button" class="btn03" id="maxbtn">
+            <img src="./img/neo.jpg" alt="">
+            <span>안녕내이름은</span>
+        </header>
+        
+<!--        대화 표시창 - 글이출력되는 영역-->
+        <section class="chatbox">
+            <div class="bubble01">배고팡</div>
+            <div class="bubble01">너무너무너무넘넘넘</div>
+        </section>
+        
+<!--        푸터영역 - 대화 입력창 영역 - 글입력하는 부분 -->
+        <footer class="txt_box">
+            <textarea placeholder="머먹고싶은지 적으시오."></textarea>
+            <input type="button" value="전송">
+        </footer>
+    </div>
+    
+    
+    
+    
+</body>
+</html>
